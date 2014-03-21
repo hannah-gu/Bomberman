@@ -23,7 +23,9 @@ public abstract class Block {
 			
 	}
 	
-	isBreakable()
+	public boolean isBreakable(){
+		return breaks;
+	}
 		
 	public double getWidth(){
 		return width;
