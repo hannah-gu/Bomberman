@@ -1,0 +1,45 @@
+public abstract class Block {
+	
+		
+	private double xCoor;
+	private double yCoor;
+	private String picName;
+	private boolean breaks;
+	private double width; 
+		
+	public Block(double x, double y, String pic, boolean breaks, double w ){
+		xCoor = x;
+		yCoor = y;
+		picName = pic;
+		this.breaks = breaks;
+		width = w;
+		System.out.println(" "+x+" "+y);
+			
+	}
+		
+	public void drawBlock(){
+		
+		StdDraw.picture(xCoor, yCoor, picName, width, width);
+			
+	}
+	
+	isBreakable()
+		
+	public double getWidth(){
+		return width;
+	}
+	public boolean getBreak(){
+		return breaks;
+	}
+		
+	public double getX(){
+		return xCoor;
+	}
+		
+	public double getY(){
+		return yCoor;
+	}
+
+	}
+
+}
