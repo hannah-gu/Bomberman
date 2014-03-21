@@ -1,0 +1,67 @@
+import java.awt.event.KeyEvent;
+
+
+public class Player {
+
+	private double posY,posX;
+	private double moveSpeed = .045;
+	
+	public Entity(double posX, double posY)
+	{
+		StdDraw.setXscale(-1.0, 1.0);
+        StdDraw.setYscale(-1.0, 1.0);
+        this.posX=posX;
+        this.posY=posY;
+       
+        StdDraw.picture(posX, posY, "cursor.png");
+        
+	}
+	
+
+	
+	public void animateCharacter()
+
+	{
+		DrawWorld xcv = new DrawWorld();
+		while(true)
+		{
+			if( xcv.isValid( posX,Math.abs(posY+moveSpeed))){
+				if(StdDraw.isKeyPressed(KeyEvent.VK_W) && Math.abs(posY+moveSpeed)<1.0  ){
+					posY +=moveSpeed;
+					xcv.createWorld();
+					StdDraw.picture(posX, posY, "cursor.png");
+					
+					StdDraw.show(25);
+				}
+				if(StdDraw.isKeyPressed(KeyEvent.VK_S) && Math.abs(posY-moveSpeed)<1.0 ){
+					posY -=moveSpeed;
+					xcv.createWorld();
+					StdDraw.picture(posX, posY, "cursor.png");
+					
+					StdDraw.show(25);
+				}
+				
+				
+		}	
+				if(StdDraw.isKeyPressed(KeyEvent.VK_D) && Math.abs(posX+moveSpeed)<1.0 ){
+					posX +=moveSpeed;
+					xcv.createWorld();
+					StdDraw.picture(posX, posY, "cursor.png");
+					
+					StdDraw.show(25);
+				}
+				if(StdDraw.isKeyPressed(KeyEvent.VK_A) && Math.abs(posX-moveSpeed)<1.0 ){
+					posX -=moveSpeed;
+					xcv.createWorld();
+					StdDraw.picture(posX, posY, "cursor.png");
+					
+					StdDraw.show(25);
+				}
+			
+			
+		
+		
+		}
+	}
+	
+}
