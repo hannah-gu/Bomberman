@@ -6,7 +6,6 @@ public class Player implements allObjects {
 	private int x,y;
 	private double moveSpeed = .045;
 	private int width;
-	private int direction = 0;
 	
 	public Entity(int x, int y, int width)
 	{
@@ -16,13 +15,16 @@ public class Player implements allObjects {
         	this.y=y;
         	this.width;
        
-        	StdDraw.picture(posX, posY, "cursor.png");
+        	StdDraw.picture(x, y, "cursor.png");
         
 	}
 	
 
-	public void draw(){
-		}
+	public void draw(int xCoor,int yCoor, String name){
+        	
+        	StdDraw.picture(xCoor, yCoor, name);
+		StdDraw.show(25);
+        }
 	
 	
 	}
@@ -32,59 +34,36 @@ public class Player implements allObjects {
 		DrawWorld xcv = new DrawWorld();
 		while(true)
 		{
-			if( xcv.isValid( posX,Math.abs(posY+moveSpeed))){
-				if(StdDraw.isKeyPressed(KeyEvent.VK_W) && Math.abs(posY+moveSpeed)<1.0  ){
-					posY +=moveSpeed;
-					direction = 0;
+			if( xcv.isValid( x,Math.abs(y+moveSpeed))){
+				if(StdDraw.isKeyPressed(KeyEvent.VK_W) && Math.abs(y+moveSpeed)<1.0  ){
+					y +=moveSpeed;
 					xcv.createWorld();
-					StdDraw.picture(posX, posY, "cursor.png");
+					draw(x,y,"cursor.png");
 					
-					StdDraw.show(25);
 				}
-				if(StdDraw.isKeyPressed(KeyEvent.VK_S) && Math.abs(posY-moveSpeed)<1.0 ){
-					posY -=moveSpeed;
-					direction = 270;
+				if(StdDraw.isKeyPressed(KeyEvent.VK_S) && Math.abs(y-moveSpeed)<1.0 ){
+					y -=moveSpeed;
 					xcv.createWorld();
-					StdDraw.picture(posX, posY, "cursor.png");
-					
-					StdDraw.show(25);
+					draw(x,y,"cursor.png");
 				}
 				
 				
 		}	
-				if(StdDraw.isKeyPressed(KeyEvent.VK_D) && Math.abs(posX+moveSpeed)<1.0 ){
-					posX +=moveSpeed;
-					direction = 90;
+				if(StdDraw.isKeyPressed(KeyEvent.VK_D) && Math.abs(x+moveSpeed)<1.0 ){
+					x +=moveSpeed;
 					xcv.createWorld();
-					StdDraw.picture(posX, posY, "cursor.png");
-					
-					StdDraw.show(25);
+					draw(x,y,"cursor.png");
 				}
-				if(StdDraw.isKeyPressed(KeyEvent.VK_A) && Math.abs(posX-moveSpeed)<1.0 ){
-					posX -=moveSpeed;
-					direction = 180;
+				if(StdDraw.isKeyPressed(KeyEvent.VK_A) && Math.abs(x-moveSpeed)<1.0 ){
+					x -=moveSpeed;
 					xcv.createWorld();
-					StdDraw.picture(posX, posY, "cursor.png");
-					
-					StdDraw.show(25);
+					draw(x,y,"cursor.png");
 				}
 			
 			
 		
 		
 		}
-	}
-	
-	public int getX(){
-		return x;
-	}
-	
-	public int getY(){
-		return y;
-	}
-	
-	public int getDirection(){
-		return direction;
 	}
 	
 }
