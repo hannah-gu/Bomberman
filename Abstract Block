@@ -1,4 +1,4 @@
-public abstract class Block {
+public abstract class Block implements allObjects{
 	
 		
 	private double xCoor;
@@ -17,7 +17,7 @@ public abstract class Block {
 			
 	}
 		
-	public void drawBlock(){
+	public void draw(){
 		
 		StdDraw.picture(xCoor, yCoor, picName, width, width);
 			
