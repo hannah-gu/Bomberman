@@ -1,4 +1,4 @@
-public abstract class Block implements allObjects{
+public abstract class Block implements Entity{
 	
 		
 	private double xCoor;
