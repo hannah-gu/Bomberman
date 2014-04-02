@@ -1,4 +1,4 @@
-public interface AllObjects{
+public interface Entity{
   private int x;
   private int y;
   private int width;
