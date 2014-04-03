@@ -1,7 +1,7 @@
 import java.awt.event.KeyEvent;
 
 
-public class Player implements allObjects {
+public class Player implements Entity {
 
 	private int x,y;
 	private double moveSpeed = .045;
