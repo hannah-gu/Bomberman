@@ -1,0 +1,16 @@
+public class Timer{
+  int seconds;
+  
+  public Time(int s){
+    seconds = s;
+  }
+  
+  /**
+     returns true if countdown is finished
+  **/
+  public boolean countdown(){
+  
+  
+  }
+  
+
