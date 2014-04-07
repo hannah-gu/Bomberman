@@ -1,0 +1,28 @@
+/**
+ * This class will take the location of an object in the 2d array and convert it into x and y coordinates to display in StdDisplay
+ * @author student
+ *
+ */
+public class Location {
+	
+	private int col;
+	private int row;
+	
+	public Location(int row,int col){
+
+		this.col=col;
+		this.row=row;
+	}
+	
+	public int getX(){
+		System.out.println((900/15)*col);//900 is the size of the display window
+		return (900/15)*col;
+		
+	}
+	
+	public int getY(){
+		System.out.println((900/15)*(14-row));
+		return (900/15)*(14-row);
+		
+	}
+}
