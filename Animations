@@ -1,0 +1,39 @@
+    StdDraw.show(90);
+		StdDraw.clear(Color.green);
+		StdDraw.picture(0.3, 0.5, "bomb.png", 0.11,0.11);
+		StdDraw.show();
+		StdDraw.show(90);
+		StdDraw.clear(Color.green);
+		StdDraw.picture(0.3, 0.5, "bomb.png", 0.08,0.08);
+		StdDraw.show();
+		StdDraw.show(90);
+		StdDraw.clear(Color.green);
+		StdDraw.picture(0.3, 0.5, "bomb.png", 0.11,0.11);
+		StdDraw.show();
+		StdDraw.show(90);
+		//repeat this part for a while
+		StdDraw.clear(Color.green);
+		StdDraw.picture(0.3, 0.5, "Explosion.png", 0.5, 0.11);
+		StdDraw.show();
+    
+    
+    
+    
+    
+    
+    StdDraw.picture(0.6, 0.5, "BreakyBlock.png",0.12,0.12);
+		StdDraw.show(120);
+		StdDraw.clear(Color.green);
+		StdDraw.picture(0.6, 0.5, "BreakyBlock1.png",0.12,0.12);
+		StdDraw.show();
+		StdDraw.show(80);
+		StdDraw.clear(Color.green);
+		StdDraw.picture(0.6, 0.5, "BreakyBlock2.png",0.12,0.12);
+		StdDraw.show();
+		StdDraw.show(80);
+		StdDraw.clear(Color.green);
+		StdDraw.picture(0.6, 0.5, "blocksbroken.png",0.12,0.12);
+		StdDraw.show();
+		StdDraw.show(80);
+		StdDraw.clear(Color.green);
+		StdDraw.show();
