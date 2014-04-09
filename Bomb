@@ -1,0 +1,56 @@
+public class Bomb {
+	private int duration;
+	//direction 
+	private int x;
+	private int y;
+	private int width;
+	
+	public Bomb(int duration, int x,int y, int width){
+		this.duration = duration;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		
+	}
+	
+	public boolean start(){
+		boolean exploded = false;
+		CountDown cd = new CountDown(duration);
+		if(cd.countDown()){
+			exploded = true;
+		}
+		System.out.print("yippekaye Oedipus");
+		return exploded;
+	}
+	
+	public void explode(){
+		if(start()){
+			
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
+	public int getWidth() {
+		return width;
+	}
+	
+	
+	public void draw(int xCoor,int yCoor,String name){
+		
+	}
+	
+	
+	
+
+}
