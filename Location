@@ -1,5 +1,5 @@
 /**
- * This class will take the location of an object in the 2d array and convert it into x and y coordinates to display in StdDisplay
+ * This class will take the location of an object in the 2d array and convert it into x and y coordinates to display in StdDisplay. THE X AND Y FUNCTION LIKE A NORMAL GRIDa
  * @author student
  *
  */
@@ -7,22 +7,30 @@ public class Location {
 	
 	private int col;
 	private int row;
+	private int dim;
+	private int ID;
 	
-	public Location(int row,int col){
-
+	public Location(int row,int col, int dim,int ID){
+		this.dim = dim;
 		this.col=col;
 		this.row=row;
+		this.ID=ID;
 	}
 	
 	public int getX(){
-		System.out.println((900/15)*col);//900 is the size of the display window
-		return (900/15)*col;
+		// IF you would like to check the x :System.out.println((900/dim)*col);
+		return ((900/15)*col)+30;
 		
 	}
 	
 	public int getY(){
-		System.out.println((900/15)*(14-row));
-		return (900/15)*(14-row);
+		//if you would like to check the y: System.out.println((900/dim)*(14-row));
+		return ((900/15)*(14-row))+30;
 		
+	}
+	
+	//used in displaying the world
+	public int getID(){
+		return ID;
 	}
 }
