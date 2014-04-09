@@ -1,0 +1,85 @@
+import java.awt.Color;
+import java.util.ArrayList;
+
+
+public class World {
+	
+	
+	public final int  DIMENSION = 990;//if this is changed, everything breaks. Fix that the +90 is b/c stdDraw adds a 10% boarder for some reason
+	public final int ARRAY_DIM = 15;
+	public int[][] objectLocations = new int[ARRAY_DIM][ARRAY_DIM];//this 2D array will have all of the locations of all of the current objects in the world i think that the 2d array should also have different numbers to indicate what kind of object is in a certain loaction
+	/*
+	 * for object locations: 
+	 * 1 = unbreakable block
+	 * 2 = breakable block
+	 * 3 = character
+	 * 4 = bomb
+	 * 5 = bomb explosion 
+	 */
+	public ArrayList<Location> locs = new ArrayList<Location>();
+	//public ArrayList<ArrayList<BreakableBlock>> breakableBlocks = new ArrayList<ArrayList<Block>>();
+	
+	
+	public World(){
+		StdDraw.setCanvasSize(DIMENSION,DIMENSION); 
+		StdDraw.setXscale(0, 900);
+		StdDraw.setYscale(0, 900);
+		generateUnbreakableBlocks();
+		
+		
+	}
+	
+	private void generateUnbreakableBlocks(){
+		for(int row=0;row<objectLocations.length;row++){
+			for(int col=0;col<objectLocations[row].length;col++){
+				if(col%2==0 && row%2 ==0 ){ //change back to != 0
+					objectLocations[row][col] = 1; //every other space in every other row will have an unbreakable block
+
+				}
+			}
+		}
+		objectLocations[0][0] = 0;
+		objectLocations[ARRAY_DIM-1][0]=0;
+		objectLocations[0][ARRAY_DIM-1]=0;
+		objectLocations[ARRAY_DIM-1][ARRAY_DIM-1] =0;
+		
+		//print 2d array in console 
+		for(int row=0;row<objectLocations.length;row++){
+			for(int col=0;col<objectLocations[row].length;col++){
+				if(objectLocations[row][col] ==1){	
+					locs.add(new Location(row,col,ARRAY_DIM,1));
+				}	
+				System.out.print(objectLocations[row][col]);	
+			
+			}
+			System.out.println();
+			
+		}
+	}
+	
+	
+	
+	
+	
+	public void display(){
+
+
+		StdDraw.clear(Color.green);
+		for(Location a : locs){
+			a.getX();
+			a.getY();
+			if(a.getID()==1){	
+				StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
+				//for all other types of objects do the same as above but check different ids
+			}	
+			
+		}
+		
+		
+		
+		
+	}
+	
+	
+	
+}
