@@ -1,4 +1,5 @@
-    StdDraw.show(90);
+		//exploding bomb
+		StdDraw.show(90);
 		StdDraw.clear(Color.green);
 		StdDraw.picture(0.3, 0.5, "bomb.png", 0.11,0.11);
 		StdDraw.show();
@@ -19,9 +20,9 @@
     
     
     
-    
-    
-    StdDraw.picture(0.6, 0.5, "BreakyBlock.png",0.12,0.12);
+    		
+    		//breaking block
+    		StdDraw.picture(0.6, 0.5, "BreakyBlock.png",0.12,0.12);
 		StdDraw.show(120);
 		StdDraw.clear(Color.green);
 		StdDraw.picture(0.6, 0.5, "BreakyBlock1.png",0.12,0.12);
