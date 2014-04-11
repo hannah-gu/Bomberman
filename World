@@ -81,7 +81,9 @@ public class World {
 				StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
 				//for all other types of objects do the same as above but check different ids
 			}	
-			
+			if(a.getID()==2){
+				StdDraw.picture(a.getX(),a.getY(), "BreakyBlock.png");
+			}
 		}
 		
 		
