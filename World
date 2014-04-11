@@ -57,7 +57,16 @@ public class World {
 		}
 	}
 	
-	
+	private void generateBreakableBlocks(){
+		for(int row=0;row<objectLocations.length;row++){
+			for(int col=0;col<objectLocations[row].length;col++){
+				int c = (int)(Math.random()*objectLocations[row].length);
+				if(objectLocations[row][c]==0){
+					locs.add(new Location(row,c,ARRAY_DIM,2));
+				}
+			}
+		}
+	}
 	
 	
 	
