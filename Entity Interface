@@ -1,8 +1,4 @@
 public interface Entity{
-  private int x;
-  private int y;
-  private int width;
-  
 
   public int getX();
   public int getY();
