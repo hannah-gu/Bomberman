@@ -1,31 +1,37 @@
+
 public class Bomb {
 	private int duration;
 	//direction 
 	private int x;
 	private int y;
 	private int width;
+	private boolean exploded;
+	private boolean doneExploding;
 	
 	public Bomb(int duration, int x,int y, int width){
 		this.duration = duration;
 		this.x = x;
 		this.y = y;
 		this.width = width;
+		exploded = false;
+		doneExploding = false;
 		
 	}
 	
-	public boolean start(){
-		boolean exploded = false;
+	public void startExplosion(){
 		CountDown cd = new CountDown(duration);
-		if(cd.countDown()){
-			exploded = true;
-		}
-		System.out.print("yippekaye Oedipus");
-		return exploded;
+		cd.countDown();
+		exploded = true;
+		System.out.println("yippekiye Oedipus");
+		
 	}
 	
 	public void explode(){
-		if(start()){
-			
+		if(exploded){
+			CountDown cd = new CountDown(1);
+			cd.countDown();
+			System.out.println("boom is over");
+			doneExploding = true;
 		}
 	}
 	
@@ -47,9 +53,23 @@ public class Bomb {
 	
 	
 	public void draw(int xCoor,int yCoor,String name){
+		if(!exploded){
+			drawBomb(xCoor,yCoor,name);
+		}
+		else{
+			drawExplosion(xCoor,yCoor,name);
+		}
 		
 	}
 	
+	private void drawBomb(int xCoor,int yCoor,String name){
+		System.out.println("hello");
+		
+	}
+	
+	private void drawExplosion(int xCoor,int yCoor,String name){
+		System.out.println("bye");
+	}
 	
 	
 
