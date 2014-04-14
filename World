@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 
 public class World {
-	
-	
+
+
 	public final int  DIMENSION = 990;//if this is changed, everything breaks. Fix that the +90 is b/c stdDraw adds a 10% boarder for some reason
 	public final int ARRAY_DIM = 15;
 	public int[][] objectLocations = new int[ARRAY_DIM][ARRAY_DIM];//this 2D array will have all of the locations of all of the current objects in the world i think that the 2d array should also have different numbers to indicate what kind of object is in a certain loaction
@@ -18,17 +18,19 @@ public class World {
 	 */
 	public ArrayList<Location> locs = new ArrayList<Location>();
 	//public ArrayList<ArrayList<BreakableBlock>> breakableBlocks = new ArrayList<ArrayList<Block>>();
-	
-	
+
+
 	public World(){
 		StdDraw.setCanvasSize(DIMENSION,DIMENSION); 
 		StdDraw.setXscale(0, 900);
 		StdDraw.setYscale(0, 900);
+		generatePlayer();
 		generateUnbreakableBlocks();
-		
-		
+		generateBreakableBlocks();
+
+
 	}
-	
+
 	private void generateUnbreakableBlocks(){
 		for(int row=0;row<objectLocations.length;row++){
 			for(int col=0;col<objectLocations[row].length;col++){
@@ -42,7 +44,7 @@ public class World {
 		objectLocations[ARRAY_DIM-1][0]=0;
 		objectLocations[0][ARRAY_DIM-1]=0;
 		objectLocations[ARRAY_DIM-1][ARRAY_DIM-1] =0;
-		
+
 		//print 2d array in console 
 		for(int row=0;row<objectLocations.length;row++){
 			for(int col=0;col<objectLocations[row].length;col++){
@@ -50,10 +52,10 @@ public class World {
 					locs.add(new Location(row,col,ARRAY_DIM,1));
 				}	
 				System.out.print(objectLocations[row][col]);	
-			
+
 			}
 			System.out.println();
-			
+
 		}
 	}
 	
@@ -61,15 +63,26 @@ public class World {
 		for(int row=0;row<objectLocations.length;row++){
 			for(int col=0;col<objectLocations[row].length;col++){
 				int c = (int)(Math.random()*objectLocations[row].length);
-				if(objectLocations[row][c]==0){
+				if(objectLocations[row][c]==0 && c>0 && c<14){
 					locs.add(new Location(row,c,ARRAY_DIM,2));
 				}
 			}
 		}
 	}
 	
-	
-	
+	private void generatePlayer(){
+		locs.add(new Location(14,0,15,3));
+	}
+
+
+	public boolean isValid(double x, double y){
+		if(x>900 || x<0 || y>900 || y<0){
+			return false;
+		}
+		return true;
+	}
+
+
 	public void display(){
 
 
@@ -78,19 +91,23 @@ public class World {
 			a.getX();
 			a.getY();
 			if(a.getID()==1){	
-				StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
+				StdDraw.picture(a.getX(), a.getY(),"Block.png");
 				//for all other types of objects do the same as above but check different ids
 			}	
 			if(a.getID()==2){
 				StdDraw.picture(a.getX(),a.getY(), "BreakyBlock.png");
 			}
+			if(a.getID()==3){
+				StdDraw.picture(a.getX(), a.getY(), "cursor.png",.5, .5);
+			}
+
 		}
-		
-		
-		
-		
+
+
+
+
 	}
-	
-	
-	
+
+
+
 }
