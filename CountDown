@@ -1,26 +1,22 @@
-public class CountDown{
+
+public class CountDown {
 	private int seconds;
 	
 	public CountDown(int s){
 		seconds = s;
 	}
 	
-	/**
-	 * 
-	 * @return true when the countdown is finished
-	 */
 	public boolean countDown(){
-		while(seconds>=0){
-			try {
-				Thread.sleep(1000);
-				System.out.println(seconds);
-				seconds--;
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		long stop = System.currentTimeMillis()+(seconds*1000);
+		boolean done = false;
+		int n = 0;
+		while(System.currentTimeMillis()<stop){
+			System.out.println(n/1000);
+			n++;
 		}
-		return true;
+		done = true;
+		return done;
+		
 	}
 
 }
