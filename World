@@ -32,6 +32,8 @@ public class World {
 	}
 
 	private void generateUnbreakableBlocks(){
+		
+		
 		for(int row=0;row<objectLocations.length;row++){
 			for(int col=0;col<objectLocations[row].length;col++){
 				if(col%2==0 && row%2 ==0 ){ //change back to != 0
@@ -44,20 +46,42 @@ public class World {
 		objectLocations[ARRAY_DIM-1][0]=0;
 		objectLocations[0][ARRAY_DIM-1]=0;
 		objectLocations[ARRAY_DIM-1][ARRAY_DIM-1] =0;
-
-		//print 2d array in console 
-		for(int row=0;row<objectLocations.length;row++){
-			for(int col=0;col<objectLocations[row].length;col++){
-				if(objectLocations[row][col] ==1){	
-					locs.add(new Location(row,col,ARRAY_DIM,1));
-				}	
-				System.out.print(objectLocations[row][col]);	
-
-			}
-			System.out.println();
-
-		}
+		
+		
 	}
+	
+	public void updateLocs(){
+		//prints 2d array in console as well 
+			for(int row=0;row<objectLocations.length;row++){
+				for(int col=0;col<objectLocations[row].length;col++){
+					if(objectLocations[row][col] ==1){	
+						Location block = new Block(col,row,"Block.jpg",false,30);////HERE IS THE PROBLEM
+						locs.add(block);
+					}
+					if(objectLocations[row][col] ==2){	
+						locs.add(new Location(row,col,ARRAY_DIM,1));
+					}
+					if(objectLocations[row][col] ==3){	
+						locs.add(new Location(row,col,ARRAY_DIM,1));
+					}
+					if(objectLocations[row][col] ==4){	
+						locs.add(new Location(row,col,ARRAY_DIM,1));
+					}
+					if(objectLocations[row][col] ==5){	
+						locs.add(new Location(row,col,ARRAY_DIM,1));
+					}
+					if(objectLocations[row][col] ==6){	
+						locs.add(new Location(row,col,ARRAY_DIM,1));
+					}
+					System.out.print(objectLocations[row][col]);	
+					
+				}
+				System.out.println();
+					
+			}
+		
+	}
+	
 	
 	private void generateBreakableBlocks(){
 		for(int row=0;row<objectLocations.length;row++){
@@ -83,31 +107,51 @@ public class World {
 	}
 
 
-	public void display(){
-
-
-		StdDraw.clear(Color.green);
-		for(Location a : locs){
-			a.getX();
-			a.getY();
-			if(a.getID()==1){	
-				StdDraw.picture(a.getX(), a.getY(),"Block.png");
-				//for all other types of objects do the same as above but check different ids
-			}	
-			if(a.getID()==2){
-				StdDraw.picture(a.getX(),a.getY(), "BreakyBlock.png");
-			}
-			if(a.getID()==3){
-				StdDraw.picture(a.getX(), a.getY(), "cursor.png",.5, .5);
-			}
-
+	public void run(){
+		while(true){	
+			updateLocs();
+			display();
+			
 		}
-
-
-
-
 	}
 
+
+		public void display(){
+		
+			StdDraw.clear(Color.green);
+			for(Location a : locs){
+				if(a.getID()==1){	
+					StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
+				}	
+				//for all other types of objects do the same as above but check different ids
+				if(a.getID()==4){	
+					
+					StdDraw.picture(a.getX(), a.getY(),"Player_Temp.jpg");
+						
+					
+				}
+				if(a.getID()==2){	
+					StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
+				}
+				if(a.getID()==3){	
+					StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
+				}
+				if(a.getID()==5){	
+					StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
+				}
+				if(a.getID()==6){	
+					StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
+				}
+				
+			}
+			StdDraw.show(30);
+			
+		}
+	
+	//returns what number is in objectLocations at the specified row and col
+	public int getOccupants(int row,int col){
+		return objectLocations[row][col];
+	}
 
 
 }
