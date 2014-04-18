@@ -1,22 +1,31 @@
-
 public class CountDown {
 	private int seconds;
-	
+	private long start;
+	private long stop;
+
 	public CountDown(int s){
-		seconds = s;
+	seconds = s;
+	start = System.currentTimeMillis();
+	stop = start+seconds*1000;
+	}
+
+	public boolean check(){
+		if(System.currentTimeMillis()>=stop){
+			return true;
+		}
+		else{return false;}
 	}
 	
-	public boolean countDown(){
-		long stop = System.currentTimeMillis()+(seconds*1000);
-		boolean done = false;
-		int n = 0;
-		while(System.currentTimeMillis()<stop){
-			System.out.println(n/1000);
-			n++;
-		}
-		done = true;
-		return done;
-		
+	public void reset(int sec){
+		seconds = sec;
+		start = System.currentTimeMillis();
+		stop = start+seconds*1000;
 	}
+	
+	public void reset(){
+		start = System.currentTimeMillis();
+		stop = start+seconds*1000;
+	}
+
 
 }
