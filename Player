@@ -56,10 +56,9 @@ public class Player implements Entity {
 
 
 	
-	public void animateCharacter()
+	public void animateCharacter(World xcv)
 
 	{
-		World xcv = new World();
 		while(true)
 		{
 			if( xcv.isValid((double) x,y+moveSpeed)){
@@ -124,16 +123,10 @@ public class Player implements Entity {
 
 			}
 			if(StdDraw.isKeyPressed(keys[4])){
-				//if(countBombs==0){
-					StdDraw.show(25);
 					Bomb b = new Bomb(8,x,y,width,"bomb.png");
-					b.draw(x,y,"bomb.png");
-					StdDraw.show();
-					//countBombs++;
-					//if(b.isDoneExploding()){
-					//	countBombs = 0;
-					//}
-				//}
+					b.draw(x,y,"bomb.png",xcv);
+					
+
 			}
 
 
