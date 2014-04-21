@@ -1,69 +1,143 @@
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 
 public class Player implements Entity {
 
 	private int x,y;
-	private double moveSpeed = .045;
-	private int width;
-	
-	public Entity(int x, int y, int width)
+	private double moveSpeed = 15.0;
+	private double width;
+	private String pic;
+	private int countBombs;
+	private int[] keys;
+
+	public Player(int x, int y, double width, String picName)
 	{
-		StdDraw.setXscale(-1.0, 1.0);
-        	StdDraw.setYscale(-1.0, 1.0);
+			StdDraw.setXscale(0, 900);
+        	StdDraw.setYscale(0, 900);
         	this.x=x;
         	this.y=y;
-        	this.width;
-       
-        	StdDraw.picture(x, y, "cursor.png");
+        	pic = picName;
+        	countBombs = 0;
+        	StdDraw.picture(x, y, "Sprite1Front.png",width,width);
+        	keys = new int[5];
         
 	}
 	
+	public void setKeys(int[] a){
+		for(int i = 0; i<5; i++){
+			keys[i]=a[i];
+		}
+		
+	}
 
-	public void draw(int xCoor,int yCoor, String name){
+	public int getX(){
+		return x;
+	}
+	
+	public int getY(){
+		return y;
+	}
+	
+	public double getWidth(){
+		return width;
+	}
+	
+	public void draw(int xCoor, int yCoor, String name){
         	
-        	StdDraw.picture(xCoor, yCoor, name);
+        StdDraw.picture(xCoor, yCoor, name);
 		StdDraw.show(25);
+		
         }
 	
-	
+	public void draw(){
+		StdDraw.picture(x,y,pic,width);
 	}
+
+
+	
 	public void animateCharacter()
 
 	{
-		DrawWorld xcv = new DrawWorld();
+		World xcv = new World();
 		while(true)
 		{
-			if( xcv.isValid( x,Math.abs(y+moveSpeed))){
-				if(StdDraw.isKeyPressed(KeyEvent.VK_W) && Math.abs(y+moveSpeed)<1.0  ){
-					y +=moveSpeed;
-					xcv.createWorld();
-					draw(x,y,"cursor.png");
-					
-				}
-				if(StdDraw.isKeyPressed(KeyEvent.VK_S) && Math.abs(y-moveSpeed)<1.0 ){
-					y -=moveSpeed;
-					xcv.createWorld();
-					draw(x,y,"cursor.png");
-				}
+			if( xcv.isValid((double) x,Math.abs(y+moveSpeed))){
 				
-				
-		}	
-				if(StdDraw.isKeyPressed(KeyEvent.VK_D) && Math.abs(x+moveSpeed)<1.0 ){
-					x +=moveSpeed;
-					xcv.createWorld();
-					draw(x,y,"cursor.png");
+				if(StdDraw.isKeyPressed(keys[0])/* && Math.abs(y+moveSpeed)<1.0*/  ){
+					y +=moveSpeed/2;
+					StdDraw.show(50);
+					xcv.display();
+					draw(x,y,"Sprite1Back.png");
+					StdDraw.show();
+					y+=moveSpeed/2;
+					StdDraw.show(50);
+					xcv.display();
+					draw(x,y,"Sprite1Back2.png");
+					StdDraw.show();
+
 				}
-				if(StdDraw.isKeyPressed(KeyEvent.VK_A) && Math.abs(x-moveSpeed)<1.0 ){
-					x -=moveSpeed;
-					xcv.createWorld();
-					draw(x,y,"cursor.png");
+			}
+			if( xcv.isValid((double) x,Math.abs(y-moveSpeed))){
+				if(StdDraw.isKeyPressed(keys[1]) /*&& Math.abs(y-moveSpeed)<1.0*/ ){
+					y -=moveSpeed/2;
+					StdDraw.show(50);
+					xcv.display();
+					draw(x,y,"Sprite1Front.png");
+					StdDraw.show();
+					y-=moveSpeed/2;
+					StdDraw.show(50);
+					xcv.display();
+					draw(x,y,"Sprite1Front2.png");
+					StdDraw.show();
 				}
+			}
+			if( xcv.isValid(Math.abs(x+moveSpeed),(double)y)){
+
 			
-			
-		
-		
+				if(StdDraw.isKeyPressed(keys[2]) ){
+					x +=moveSpeed/2;
+					StdDraw.show(50);
+					xcv.display();
+					draw(x,y,"Sprite1Right.png");
+					StdDraw.show();
+					x+=moveSpeed/2;
+					StdDraw.show(50);
+					xcv.display();
+					draw(x,y,"Sprite1Right2.png");
+					StdDraw.show();
+				}
+			}
+			if( xcv.isValid(Math.abs(x-moveSpeed),(double)y)){
+				if(StdDraw.isKeyPressed(keys[3])){
+					x -=moveSpeed/2;
+					StdDraw.show(50);
+					xcv.display();
+					draw(x,y,"Sprite1Left.png");
+					StdDraw.show();
+					x-=moveSpeed/2;
+					StdDraw.show(50);
+					xcv.display();
+					draw(x,y,"Sprite1Left2.png");
+					StdDraw.show();
+				}
+
+			}
+			if(StdDraw.isKeyPressed(keys[4])){
+				if(countBombs==0){
+					StdDraw.show(25);
+					Bomb b = new Bomb(8,x,y,width,"bomb.png");
+					b.draw(x,y,"bomb.png");
+					StdDraw.show();
+					countBombs++;
+					if(b.isDoneExploding()){
+						countBombs = 0;
+					}
+				}
+			}
+
+
 		}
 	}
-	
+
 }
