@@ -1,0 +1,20 @@
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+
+public class DrawMain {
+
+	public static void main(String[] args) {
+		
+
+		StdDraw.setXscale(0.0,900.0);
+		StdDraw.setYscale(0.0,900.0);
+		int dimension = 900;
+		StdDraw.setCanvasSize(dimension,dimension);
+		Player p1 = new Player(400,400,10, "Sprite1Front.png");
+		p1.draw();
+		int[] k1 = {KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_SPACE};
+		p1.setKeys(k1);
+		p1.animateCharacter();
+		
+		}
+	}
