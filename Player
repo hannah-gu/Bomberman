@@ -13,7 +13,7 @@ public class Player implements Entity {
 
 	public Player(int x, int y, double width, String picName)
 	{
-		StdDraw.setXscale(0, 900);
+			StdDraw.setXscale(0, 900);
         	StdDraw.setYscale(0, 900);
         	this.x=x;
         	this.y=y;
@@ -62,9 +62,9 @@ public class Player implements Entity {
 		World xcv = new World();
 		while(true)
 		{
-			if( xcv.isValid((double) x,Math.abs(y+moveSpeed))){
+			if( xcv.isValid((double) x,y+moveSpeed)){
 				
-				if(StdDraw.isKeyPressed(keys[0])/* && Math.abs(y+moveSpeed)<1.0*/  ){
+				if(StdDraw.isKeyPressed(keys[0]) ){
 					y +=moveSpeed/2;
 					StdDraw.show(50);
 					xcv.display();
@@ -78,8 +78,8 @@ public class Player implements Entity {
 
 				}
 			}
-			if( xcv.isValid((double) x,Math.abs(y-moveSpeed))){
-				if(StdDraw.isKeyPressed(keys[1]) /*&& Math.abs(y-moveSpeed)<1.0*/ ){
+			if( xcv.isValid((double) x, y-moveSpeed)){
+				if(StdDraw.isKeyPressed(keys[1]) ){
 					y -=moveSpeed/2;
 					StdDraw.show(50);
 					xcv.display();
@@ -92,7 +92,7 @@ public class Player implements Entity {
 					StdDraw.show();
 				}
 			}
-			if( xcv.isValid(Math.abs(x+moveSpeed),(double)y)){
+			if( xcv.isValid(x+moveSpeed,(double)y)){
 
 			
 				if(StdDraw.isKeyPressed(keys[2]) ){
@@ -108,7 +108,7 @@ public class Player implements Entity {
 					StdDraw.show();
 				}
 			}
-			if( xcv.isValid(Math.abs(x-moveSpeed),(double)y)){
+			if( xcv.isValid(x-moveSpeed,(double)y)){
 				if(StdDraw.isKeyPressed(keys[3])){
 					x -=moveSpeed/2;
 					StdDraw.show(50);
@@ -124,16 +124,16 @@ public class Player implements Entity {
 
 			}
 			if(StdDraw.isKeyPressed(keys[4])){
-				if(countBombs==0){
+				//if(countBombs==0){
 					StdDraw.show(25);
 					Bomb b = new Bomb(8,x,y,width,"bomb.png");
 					b.draw(x,y,"bomb.png");
 					StdDraw.show();
-					countBombs++;
-					if(b.isDoneExploding()){
-						countBombs = 0;
-					}
-				}
+					//countBombs++;
+					//if(b.isDoneExploding()){
+					//	countBombs = 0;
+					//}
+				//}
 			}
 
 
