@@ -1,0 +1,116 @@
+import java.awt.event.KeyEvent;
+
+public class Bomb {
+	private int duration;
+	//direction
+	private int x;
+	private int y;
+	private double width;
+	private boolean exploded;
+	private boolean doneExploding;
+	private CountDown cd;
+	private String pic;
+
+	public Bomb(int duration, int x,int y, double width, String picName){
+		StdDraw.setXscale(0, 900);
+    	StdDraw.setYscale(0, 900);
+		this.duration = duration;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		exploded = false;
+		doneExploding = false;
+		cd = new CountDown(duration);
+		pic = picName;
+
+	}
+
+	public void updateBomb(){
+		if(cd.check()){
+			exploded = true;
+			cd.reset(2);
+		}
+	}
+
+	public void updateExplosion(){
+		if(cd.check()){
+			doneExploding = true;
+		}
+	}
+
+
+	public boolean isExploded() {
+		return exploded;
+	}
+
+
+	public boolean isDoneExploding() {
+		return doneExploding;
+	}
+
+
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
+	public double getWidth() {
+		return width;
+	}
+
+
+	public void draw(int xCoor,int yCoor,String name,World xcv){
+
+		System.out.println(exploded);
+		while(!exploded){
+			drawBomb(x,y,pic,xcv);
+			updateBomb();
+		}
+		if(exploded){
+			while(!doneExploding){
+				drawExplosion(x,y,"Explosion.png",xcv);
+				updateExplosion();
+			}
+		}
+
+	}
+
+	public void drawBomb(int xCoor,int yCoor,String name, World xcv){
+		StdDraw.show(90);
+		xcv.display();
+		StdDraw.picture(x,y,pic,60,60);
+		StdDraw.show();
+		StdDraw.show(90);
+		xcv.display();
+		StdDraw.picture(x, y, pic, 50,50);
+		StdDraw.show();
+
+	}
+	
+
+
+	public void drawExplosion(int xCoor,int yCoor,String name, World xcv){
+		
+		StdDraw.picture(xCoor, yCoor, "Explosion.png",60,60);
+		StdDraw.show(120);
+		xcv.display();
+		for(int i = xCoor-120; i<=xCoor+120; i+=60){
+			if(xcv.isValid(i,yCoor)){
+				StdDraw.picture(i, yCoor, name, 60, 60);			
+			}
+		}
+		
+		for(int j = yCoor-120; j<=yCoor+120; j+=60){
+			if(xcv.isValid(xCoor,j)){
+				StdDraw.picture(xCoor, j, name, 60, 60);
+			}
+		}
+		StdDraw.show();
+		
+
+	}
+
+
+
+}
