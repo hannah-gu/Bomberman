@@ -3,12 +3,16 @@ public class CountDown {
 	private long start;
 	private long stop;
 	
+	/**
+	   Creates timer with s seconds
+	   Starts when created **/
 	public CountDown(int s){
 		seconds = s;
 		start = System.currentTimeMillis();
 		stop = start+seconds*1000;
 	}
 	
+	/**checks if timer is finished**/
 	public boolean check(){
 		if(System.currentTimeMillis()>=stop){
 			System.out.println("Done");
@@ -21,25 +25,26 @@ public class CountDown {
 	}
 	
 	
-	public void setSeconds(int seconds) {
+	private void setSeconds(int seconds) {
 		this.seconds = seconds;
 	}
 
-	public void setStart(long start) {
+	private void setStart(long start) {
 		this.start = start;
 	}
 
-	public void setStop(long stop) {
+	private void setStop(long stop) {
 		this.stop = stop;
 	}
 
+	/**restarts timer with given number of seconds**/
 	public void reset(int sec){
 		System.out.println("hihhh");
 		setSeconds(sec);
 		setStart(System.currentTimeMillis());
 		setStop(start+seconds*1000);
 	}
-	
+	/**restarts timer with original number of seconds**/
 	public void reset(){
 		System.out.println("hihhh");
 		setStart(System.currentTimeMillis());
