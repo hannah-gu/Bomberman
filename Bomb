@@ -8,6 +8,7 @@ public class Bomb {
 	private boolean doneExploding;
 	private CountDown cd;
 	
+	/**creates bomb. starts counting down when created**/
 	public Bomb(int duration, int x,int y, int width){
 		this.duration = duration;
 		this.x = x;
@@ -19,6 +20,8 @@ public class Bomb {
 	
 	}
 	
+	/**Checks if unexploded bomb's timer is finshed,
+	if so sets exploded to true and resets timer**/
 	public void updateBomb(){
 		if(cd.check()){
 			exploded = true;
@@ -26,6 +29,8 @@ public class Bomb {
 		}
 	}
 	
+	/**Checks if exploding bomb is done exploding, 
+	if so sets doneExploding to true**/
 	public void updateExplosion(){
 		if(cd.check()){
 			doneExploding = true;
@@ -38,12 +43,14 @@ public class Bomb {
 	
 	
 	
-	
+	/**
+	 returns isExploded**/
 	public boolean isExploded() {
 		return exploded;
 	}
 	
-
+	/**
+	 returns doneExploding**/
 	public boolean isDoneExploding() {
 		return doneExploding;
 	}
