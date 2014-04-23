@@ -1,0 +1,66 @@
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+
+class SwingEvent {
+	JButton play;
+
+	JLabel jlab;
+
+	public void display() {
+		JFrame jfrm = new JFrame("Test");
+
+		// set size
+		jfrm.setSize(500, 500);
+
+		// wen window is closed?
+		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// by default layout is border set to flow layout
+		jfrm.setLayout(new FlowLayout());
+
+		// set visible frame
+		jfrm.setVisible(true);
+
+		// display a label
+		jlab = new JLabel("Event driven swing");
+		jfrm.add(jlab);
+		play = new JButton("play");
+		
+
+		// add action listener for alpha
+		play.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				//Put the world code here!!!
+				//World xcv = new World();
+				//xvc.display();
+				//I would need to copy all the stuff from github and the pictures
+				//so if one of you guys could just test it first and tell me what happens
+				//that would be awesome
+				//Test t = new Test();
+				//t.displayS();
+				
+			}
+		});
+
+		
+
+		JLabel jlab2 = new JLabel("press play");
+		jfrm.add(jlab2);
+
+		// add to frame pane
+		jfrm.add(play);
+		
+	}
+
+	// event dispacthing thread
+	public static void main(String k[]) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				SwingEvent sw = new SwingEvent();
+				sw.display();
+			}
+		});
+	}
+}
