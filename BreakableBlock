@@ -1,43 +1,20 @@
 public class BreakableBlock extends Block{
 
-  public BreakableBlock(double x, double y, String pic, boolean breaks, double w){
+  public BreakableBlock(int x, int y){
   
-    super(x,y,pic,breaks,w);
+    super(x,y,"BreakableBlock.jpg");
     
   }
   
-  public void break(){
-    
-    
-    
+  public boolean getBreak(){
+	  return true;
   }
   
-  public boolean canBreak(int x, int y, int direction){ //character's position and direction
-  
-    if(direction == 0){
-      if(y-/*spaces until block*/==getY() && x==getX()){
-        return true;
-      }
-    }else if(direction = 90){
-      if(x+/*spaces until block*/==getX() && y==getY()){
-        return true;
-      }
-    }else if(direction == 180){
-      if(y+/*spaces until block*/==getY() && x==getX()){
-        return true;
-      }
-    }else if(direction == 270){
-      if(x-/*spaces until block*/==getX() && y==getY()){
-        return true;
-      }
-    }
-    
-    return false;
-    
-        
-    }
-  
+  public int getID(){
+	  return 2;
   }
+
+
   
   
 }
