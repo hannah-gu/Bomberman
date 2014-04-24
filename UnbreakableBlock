@@ -1,0 +1,17 @@
+public class UnbreakableBlock extends Block {
+	
+
+	
+	public UnbreakableBlock(int x, int y){
+		super(x,y,"Block.jpg");
+	}
+	
+	public boolean getBreak(){
+		return false;
+	}
+
+	public int getID(){
+		return 1;
+	}
+	
+}
