@@ -1,47 +1,23 @@
-public abstract class Block implements Entity{
+public abstract class Block extends Entity {
 	
 		
-	private double xCoor;
-	private double yCoor;
-	private String picName;
-	private boolean breaks;
-	private double width; 
+	private String picName; 
 		
-	public Block(double x, double y, String pic, boolean breaks, double w ){
-		xCoor = x;
-		yCoor = y;
+	public Block(int x, int y, String pic){
+		super(y,x);
 		picName = pic;
-		this.breaks = breaks;
-		width = w;
-		System.out.println(" "+x+" "+y);
-			
+	
 	}
 		
 	public void draw(){
 		
-		StdDraw.picture(xCoor, yCoor, picName, width, width);
+		StdDraw.picture(getX(), getY(), picName);
 			
 	}
+
+	public abstract boolean getBreak();
 	
-	public boolean isBreakable(){
-		return breaks;
-	}
-		
-	public double getWidth(){
-		return width;
-	}
-	public boolean getBreak(){
-		return breaks;
-	}
-		
-	public double getX(){
-		return xCoor;
-	}
-		
-	public double getY(){
-		return yCoor;
-	}
+	
+	
 
 	}
-
-}
