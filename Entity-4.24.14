@@ -1,0 +1,26 @@
+public abstract class Entity{
+
+  private Location loc;
+
+	
+  public Entity(int y,int x){
+	loc = new Location(y,x);  
+  }
+	
+  public double getX(){
+	  return loc.getX();
+  }
+  public double getY(){
+	 return loc.getY();
+  }
+
+  public abstract int getID();//Instance of? 
+
+  //  public int getWidth();
+ 
+  public abstract void draw();
+  
+  
+      
+
+}
