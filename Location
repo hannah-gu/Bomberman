@@ -10,16 +10,21 @@ public class Location {
 	private int dim;
 	private int ID;
 	
-	public Location(int row,int col, int dim,int ID){
+	public Location(int row,int col){
 		this.dim = dim;
 		this.col=col;
 		this.row=row;
 		this.ID=ID;
+
 	}
 	
+	/**
+	 * returns the x coordinate of the col in object Locations
+	 * @return
+	 */
 	public int getX(){
 		// IF you would like to check the x :System.out.println((900/dim)*col);
-		return ((900/15)*col)+30;
+		return ((900/15)*(col))+30;//adds 30 b/c std draw draws fron the center of the image so col 0 must have a value of 30
 		
 	}
 	
@@ -33,4 +38,14 @@ public class Location {
 	public int getID(){
 		return ID;
 	}
+	
+	public void changeLoc(int row,int col){
+		
+		this.row = row;
+		this.col = col;
+	}
+	
+	
+	
 }
+
