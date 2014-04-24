@@ -3,155 +3,103 @@ import java.util.ArrayList;
 
 
 public class World {
-
-
-	public final int  DIMENSION = 990;//if this is changed, everything breaks. Fix that the +90 is b/c stdDraw adds a 10% boarder for some reason
+	
+	
+	private final int  DIMENSION = 900;//if this is changed, everything breaks. Fix that the +90 is b/c stdDraw adds a 10% boarder for some reason
 	public final int ARRAY_DIM = 15;
-	public int[][] objectLocations = new int[ARRAY_DIM][ARRAY_DIM];//this 2D array will have all of the locations of all of the current objects in the world i think that the 2d array should also have different numbers to indicate what kind of object is in a certain loaction
+	private Entity[][] objectLocations = new Entity[ARRAY_DIM][ARRAY_DIM];//this 2D array will have all of the locations of all of the current objects in the world i think that the 2d array should also have different numbers to indicate what kind of object is in a certain loaction
 	/*
 	 * for object locations: 
+	 * 0 = empty place
 	 * 1 = unbreakable block
 	 * 2 = breakable block
 	 * 3 = character
 	 * 4 = bomb
 	 * 5 = bomb explosion 
+	 * 6 = block
 	 */
-	public ArrayList<Location> locs = new ArrayList<Location>();
-	//public ArrayList<ArrayList<BreakableBlock>> breakableBlocks = new ArrayList<ArrayList<Block>>();
-
-
+	
+	
+	
 	public World(){
 		StdDraw.setCanvasSize(DIMENSION,DIMENSION); 
-		StdDraw.setXscale(0, 900);
-		StdDraw.setYscale(0, 900);
-		generatePlayer();
-		generateUnbreakableBlocks();
+		StdDraw.setXscale(0, DIMENSION);
+		StdDraw.setYscale(0, DIMENSION);
 		generateBreakableBlocks();
-
-
+		generateUnbreakableBlocks();
 	}
-
-	private void generateUnbreakableBlocks(){
-		
-		
-		for(int row=0;row<objectLocations.length;row++){
-			for(int col=0;col<objectLocations[row].length;col++){
-				if(col%2==0 && row%2 ==0 ){ //change back to != 0
-					objectLocations[row][col] = 1; //every other space in every other row will have an unbreakable block
-
-				}
-			}
-		}
-		objectLocations[0][0] = 0;
-		objectLocations[ARRAY_DIM-1][0]=0;
-		objectLocations[0][ARRAY_DIM-1]=0;
-		objectLocations[ARRAY_DIM-1][ARRAY_DIM-1] =0;
-		
-		
-	}
-	
-	public void updateLocs(){
-		//prints 2d array in console as well 
-			for(int row=0;row<objectLocations.length;row++){
-				for(int col=0;col<objectLocations[row].length;col++){
-					if(objectLocations[row][col] ==1){	
-						Location block = new Block(col,row,"Block.jpg",false,30);////HERE IS THE PROBLEM
-						locs.add(block);
-					}
-					if(objectLocations[row][col] ==2){	
-						locs.add(new Location(row,col,ARRAY_DIM,1));
-					}
-					if(objectLocations[row][col] ==3){	
-						locs.add(new Location(row,col,ARRAY_DIM,1));
-					}
-					if(objectLocations[row][col] ==4){	
-						locs.add(new Location(row,col,ARRAY_DIM,1));
-					}
-					if(objectLocations[row][col] ==5){	
-						locs.add(new Location(row,col,ARRAY_DIM,1));
-					}
-					if(objectLocations[row][col] ==6){	
-						locs.add(new Location(row,col,ARRAY_DIM,1));
-					}
-					System.out.print(objectLocations[row][col]);	
-					
-				}
-				System.out.println();
-					
-			}
-		
-	}
-	
 	
 	private void generateBreakableBlocks(){
 		for(int row=0;row<objectLocations.length;row++){
 			for(int col=0;col<objectLocations[row].length;col++){
-				int c = (int)(Math.random()*objectLocations[row].length);
-				if(objectLocations[row][c]==0 && c>0 && c<14){
-					locs.add(new Location(row,c,ARRAY_DIM,2));
+				if(col%2!=0 && row%2 != 0){
+					objectLocations[row][col]= (new BreakableBlock(col,row)) ;
 				}
 			}
 		}
 	}
 	
-	private void generatePlayer(){
-		locs.add(new Location(14,0,15,3));
+	
+	private void generateUnbreakableBlocks(){
+		for(int row=0;row<objectLocations.length;row++){
+			for(int col=0;col<objectLocations[row].length;col++){
+				if(col%2==0 && row%2 ==0 ){
+					objectLocations[row][col] = new UnbreakableBlock(col,row); //every other space in every other row will have an unbreakable block
+
+				}
+			}
+		}
+		objectLocations[0][0] = null;
+		objectLocations[ARRAY_DIM-1][0]=null;
+		objectLocations[0][ARRAY_DIM-1]=null;
+		//objectLocations[ARRAY_DIM-1][ARRAY_DIM-1] =null;
+		
+
+		
 	}
+	
+	
+	
 
 
 	public boolean isValid(double x, double y){
 		if(x>900 || x<0 || y>900 || y<0){
 			return false;
 		}
+		if(objectLocations[14-((int)(((y-30)*15)/900))][(int)(((x-30)*15)/900)] !=null && objectLocations[14-((int)(((y-30)*15)/900))][(int)(((x-30)*15)/900)].getID()==1){//converts x/y-coordinates back into row/col
+			if(objectLocations[14-((int)(((y-30)*15)/900))][(int)(((x-30)*15)/900)].getID()==1){
+				return false;
+			}
+			if(objectLocations[14-((int)(((y-30)*15)/900))][(int)(((x-30)*15)/900)].getID()==2){
+				return false;
+			}	
+		}	
 		return true;
 	}
 
-
-	public void run(){
-		while(true){	
-			updateLocs();
-			display();
-			
+	
+	public void display(){
+		StdDraw.clear(Color.green);
+		for(Entity[] a : objectLocations){
+			for(Entity b : a){
+				if(b !=null)
+					b.draw();
+			}
 		}
 	}
-
-
-		public void display(){
-		
-			StdDraw.clear(Color.green);
-			for(Location a : locs){
-				if(a.getID()==1){	
-					StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
-				}	
-				//for all other types of objects do the same as above but check different ids
-				if(a.getID()==4){	
-					
-					StdDraw.picture(a.getX(), a.getY(),"Player_Temp.jpg");
-						
-					
-				}
-				if(a.getID()==2){	
-					StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
-				}
-				if(a.getID()==3){	
-					StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
-				}
-				if(a.getID()==5){	
-					StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
-				}
-				if(a.getID()==6){	
-					StdDraw.picture(a.getX(), a.getY(),"Block.jpg");
-				}
-				
-			}
-			StdDraw.show(30);
-			
-		}
 	
 	//returns what number is in objectLocations at the specified row and col
 	public int getOccupants(int row,int col){
-		return objectLocations[row][col];
+		return objectLocations[row][col].getID();
 	}
-
-
+	
+	public void addBomb(int col, int row){
+		objectLocations[row][col] = (new Bomb(1,col,row))  ;
+	}
+	
+	public void removeOccupant(int row,int col){
+		objectLocations[row][col]=null;
+	}
+	
 }
+
