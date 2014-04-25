@@ -69,8 +69,12 @@ public class Player extends Entity {
 		StdDraw.show(50);
 		xcv.display();
 		StdDraw.show();
+		isDead = true;
 	}
-
+	
+	public boolean isDead(){
+		return isDead;
+	}
 
 	public void animateCharacter()
 
