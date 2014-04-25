@@ -2,7 +2,7 @@ public class BreakableBlock extends Block{
 
   public BreakableBlock(int x, int y){
   
-    super(x,y,"BreakableBlock.jpg");
+    super(x,y,"BreakyBlock.png");
     
   }
   
@@ -12,6 +12,30 @@ public class BreakableBlock extends Block{
   
   public int getID(){
 	  return 2;
+  }
+  
+  public void draw(){
+	  StdDraw.picture(getX(), getY(), "BreakyBlock.png");
+  }
+  
+  public void breakBlock(World xcv){
+	  if(getBreak()){
+		  StdDraw.show(80);
+		  xcv.display();
+		  StdDraw.picture(getX(), getY(), "BreakyBlock1.png",0.12,0.12);
+		  StdDraw.show();
+		  StdDraw.show(80);
+		  xcv.display();
+		  StdDraw.picture(getX(), getY(), "BreakyBlock2.png",0.12,0.12);
+		  StdDraw.show();
+		  StdDraw.show(80);
+		  xcv.display();
+		  StdDraw.picture(getX(), getY(), "blocksbroken.png",0.12,0.12);
+		  StdDraw.show();
+		  StdDraw.show(80);
+		  xcv.display();
+		  StdDraw.show();
+	  }
   }
 
 
