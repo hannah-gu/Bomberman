@@ -1,28 +1,35 @@
-
  
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
- 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
  
 
-public class ButtonDemo extends JPanel
+public class GUI extends JPanel
                         implements ActionListener {
-    protected JButton b1;
+    private JButton b1;
+    private JLabel label;
  
-    public ButtonDemo() {
+    public GUI() {
        
  
         b1 = new JButton("Play");
         b1.setVerticalTextPosition(AbstractButton.CENTER);
         b1.setHorizontalTextPosition(AbstractButton.LEADING); //aka LEFT, for left-to-right locales
         b1.setActionCommand("play");
- 
+        
+    
+        label = new JLabel();
+        String text = "Instructions: Use the WASD to move and the spacebar to throw a bomb!";
+        label.setText(text);
+        
+        
       
  
         
@@ -34,6 +41,7 @@ public class ButtonDemo extends JPanel
  
         //Add Components to this container, using the default FlowLayout.
         add(b1);
+        add(label);
        
     }
  
@@ -59,7 +67,7 @@ public class ButtonDemo extends JPanel
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  
         //Create and set up the content pane.
-        ButtonDemo newContentPane = new ButtonDemo();
+        GUI newContentPane = new GUI();
         newContentPane.setOpaque(true); //content panes must be opaque
         frame.setContentPane(newContentPane);
  
