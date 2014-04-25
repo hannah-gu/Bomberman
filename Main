@@ -20,7 +20,7 @@ public class DrawMain {
 		p1.draw();
 		
 
-		while(true){	
+		while(!p1.isDead()){	
 			StdDraw.show(10);
 			p1.animateCharacter();
 			//StdDraw.show(10);
