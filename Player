@@ -49,7 +49,17 @@ public class Player extends Entity {
 	public void draw(){
 		StdDraw.picture(x,y,pic,width);
 	}
-
+	
+	public void dead(){
+		
+		StdDraw.show(120);
+		xcv.display();
+		StdDraw.picture(x, y, "SpriteGone.png");
+		StdDraw.show();
+		StdDraw.show(50);
+		xcv.display();
+		StdDraw.show();
+	}
 
 
 	public void animateCharacter()
