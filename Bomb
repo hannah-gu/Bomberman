@@ -94,51 +94,39 @@ public class Bomb {
 	}
 	
 	private void drawExplosion(int xCoor,int yCoor,String name){
-				StdDraw.picture(xCoor, yCoor, "Explosion.png",60,60);
+		StdDraw.picture(xCoor, yCoor, "Explosion.png",60,60);
 		StdDraw.show(120);
 		xcv.display();
-		for(int i = xCoor-120; i<=xCoor+120; i+=60){
+		for(int i = xCoor; i>=xCoor-120; i-=60){
 			if(xcv.isValid(i,yCoor)){
 				StdDraw.picture(i, yCoor, name, 60, 60);
-//				if(xcv.getOccupants((int)(((i-30)*15)/900),14-((int)((((yCoor-30)*15)/900)+.5)))==2){
-//					BreakableBlock b = (BreakableBlock)xcv.getObject((int)(((i-30)*15)/900),14-((int)((((yCoor-30)*15)/900)+.5)));
-//					b.breakBlock(xcv);
-//					xcv.removeOccupant((int)(((i-30)*15)/900),14-((int)((((yCoor-30)*15)/900)+.5)));
-//				}
-//				if(xcv.getOccupants((int)(((i-30)*15)/900),14-((int)((((yCoor-30)*15)/900)+.5)))==3){
-//					Player p = (Player)xcv.getObject((int)(((i-30)*15)/900),14-((int)((((yCoor-30)*15)/900)+.5)));
-//					p.dead();
-//					xcv.removeOccupant((int)(((i-30)*15)/900),14-((int)((((yCoor-30)*15)/900)+.5)));
-//				}
-//				
 			}else{
-		         	break;
+				break;
 			}
 		}
-		
-		for(int j = yCoor-120; j<=yCoor+120; j+=60){
+		for(int i = xCoor; i<=xCoor+120; i+=60){
+			if(xcv.isValid(i,yCoor)){
+				StdDraw.picture(i, yCoor, name, 60, 60);
+			}else{
+				break;
+			}
+		}
+		for(int j = yCoor; j<=yCoor+120; j+=60){
 			if(xcv.isValid(xCoor,j)){
 				StdDraw.picture(xCoor, j, name, 60, 60);
-//				if(xcv.getOccupants((int)(((xCoor-30)*15)/900),14-((int)((((j-30)*15)/900)+.5)))==2){
-//					BreakableBlock b = (BreakableBlock)xcv.getObject((int)(((xCoor-30)*15)/900),14-((int)((((j-30)*15)/900)+.5)));
-//					b.breakBlock(xcv);;
-//					xcv.removeOccupant((int)(((xCoor-30)*15)/900),14-((int)((((j-30)*15)/900)+.5)));
-//				}
-//				if(xcv.getOccupants((int)(((xCoor-30)*15)/900),14-((int)((((j-30)*15)/900)+.5)))==3){
-//					Player p = (Player)xcv.getObject((int)(((xCoor-30)*15)/900),14-((int)((((j-30)*15)/900)+.5)));
-//					p.dead();
-//					xcv.removeOccupant((int)(((xCoor-30)*15)/900),14-((int)((((j-30)*15)/900)+.5)));
-//					
-//				}
 			}else{
-		        	break;
+				break;
+			}
+		}
+		for(int j = yCoor; j>=yCoor-120; j+=60){
+			if(xcv.isValid(xCoor,j)){
+				StdDraw.picture(xCoor, j, name, 60, 60);
+			}else{
+				break;
 			}
 		}
 		StdDraw.show();
-		
-
-	}
-	}
+		}
 
 
 
