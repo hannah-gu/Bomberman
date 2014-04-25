@@ -111,6 +111,8 @@ public class Bomb {
 //					xcv.removeOccupant((int)(((i-30)*15)/900),14-((int)((((yCoor-30)*15)/900)+.5)));
 //				}
 //				
+			}else{
+		         	break;
 			}
 		}
 		
@@ -128,6 +130,8 @@ public class Bomb {
 //					xcv.removeOccupant((int)(((xCoor-30)*15)/900),14-((int)((((j-30)*15)/900)+.5)));
 //					
 //				}
+			}else{
+		        	break;
 			}
 		}
 		StdDraw.show();
