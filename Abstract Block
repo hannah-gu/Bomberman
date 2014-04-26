@@ -1,23 +1,32 @@
 public abstract class Block extends Entity {
-	
-		
-	private String picName; 
-		
-	public Block(int x, int y, String pic){
-		super(y,x);
+
+	private String picName;
+
+	/**
+	 * creates Block
+	 * @param x xCoor
+	 * @param y yCoor
+	 * @param pic name of the picture to display
+	 */
+	public Block(int x, int y, String pic) {
+		super(y, x);
 		picName = pic;
-	
+
 	}
-		
-	public void draw(){
-		
+
+	/**
+	 * draws the appropriate picture
+	 */
+	public void draw() {
+
 		StdDraw.picture(getX(), getY(), picName);
-			
+
 	}
 
+	/**
+	 * will determine if can break or not
+	 * 
+	 */
 	public abstract boolean getBreak();
-	
-	
-	
 
-	}
+}
