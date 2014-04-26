@@ -2,54 +2,67 @@ public class CountDown {
 	private int seconds;
 	private long start;
 	private long stop;
-	
+
 	/**
-	   Creates timer with s seconds
-	   Starts when created **/
-	public CountDown(int s){
+	 * Creates timer with s seconds,starts when created
+	 */
+	public CountDown(int s) {
 		seconds = s;
 		start = System.currentTimeMillis();
-		stop = start+seconds*1000;
+		stop = start + seconds * 1000;
 	}
-	
-	/**checks if timer is finished**/
-	public boolean check(){
-		if(System.currentTimeMillis()>=stop){
+
+	/**
+	 * 
+	 * @return if timer has reached the stopping point
+	 */
+	public boolean check() {
+		if (System.currentTimeMillis() >= stop) {
 			System.out.println("Done");
 			return true;
-		}
-		else{
-			//System.out.println((System.currentTimeMillis()/1000)-139801565);
+		} else {
+			// System.out.println((System.currentTimeMillis()/1000)-139801565);
 			return false;
 		}
 	}
-	
-	
+
+	/**
+	 * sets the duration
+	 * @param seconds the duration
+	 */
 	private void setSeconds(int seconds) {
 		this.seconds = seconds;
 	}
 
+	/**
+	 * sets the start time
+	 * @param start
+	 */
 	private void setStart(long start) {
 		this.start = start;
 	}
 
+	/**
+	 * sets the end time
+	 * @param stop
+	 */
 	private void setStop(long stop) {
 		this.stop = stop;
 	}
 
-	/**restarts timer with given number of seconds**/
-	public void reset(int sec){
-		System.out.println("hihhh");
+	/** restarts timer with given number of seconds */
+	public void reset(int sec) {
+		//System.out.println("hihhh");
 		setSeconds(sec);
 		setStart(System.currentTimeMillis());
-		setStop(start+seconds*1000);
-	}
-	/**restarts timer with original number of seconds**/
-	public void reset(){
-		System.out.println("hihhh");
-		setStart(System.currentTimeMillis());
-		setStop(start+seconds*1000);
+		setStop(start + seconds * 1000);
 	}
 
+	/** restarts timer with original number of seconds */
+	public void reset() {
+		//System.out.println("hihhh");
+		setStart(System.currentTimeMillis());
+		setStop(start + seconds * 1000);
+	}
 
 }
