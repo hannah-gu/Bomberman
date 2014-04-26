@@ -2,7 +2,7 @@ import java.awt.event.KeyEvent;
 
 public class Bomb {
 	private int duration;
-	//direction
+	// direction
 	private int x;
 	private int y;
 	private double width;
@@ -11,13 +11,23 @@ public class Bomb {
 	private CountDown cd;
 	private String pic;
 
-	public Bomb(int duration, int x,int y, double width, String picName){
+	/**
+	 * Creates a bomb which starts counting down when created
+	 * @param duration  the time before it explodes in seconds
+	 * @param x  the x coordinate
+	 * @param y  the y coordinate
+	 * @param width  the width in pixels when diplayed
+	 * @param picName the name of the picture to be displayed
+	 */
+	public Bomb(int duration, int x, int y, double width, String picName) {
+		//for displaying purposes
 		StdDraw.setXscale(0, 900);
-    	StdDraw.setYscale(0, 900);
+		StdDraw.setYscale(0, 900);
 		this.duration = duration;
 		this.x = x;
 		this.y = y;
 		this.width = width;
+		//these track the status of the bomb
 		exploded = false;
 		doneExploding = false;
 		cd = new CountDown(duration);
@@ -25,92 +35,130 @@ public class Bomb {
 
 	}
 
-	public void updateBomb(){
-		if(cd.check()){
+	/**
+	 * checks if bomb has exploded, updates variable, and resets timer
+	 */
+	public void updateBomb() {
+		if (cd.check()) {
 			exploded = true;
 			cd.reset(2);
 		}
 	}
-
-	public void updateExplosion(){
-		if(cd.check()){
+	/**
+	 * checks if bomb has finished exploding and updates variable
+	 */
+	public void updateExplosion() {
+		if (cd.check()) {
 			doneExploding = true;
 		}
 	}
 
-
+	/**
+	 * 
+	 * @return exploded
+	 */
 	public boolean isExploded() {
 		return exploded;
 	}
 
-
+	/**
+	 * 
+	 * @return doneExploding
+	 */
 	public boolean isDoneExploding() {
 		return doneExploding;
 	}
 
-
+	/**
+	 * 
+	 * @return x
+	 */
 	public int getX() {
 		return x;
 	}
+
+	/**
+	 * @return y
+	 */
 	public int getY() {
 		return y;
 	}
+
+	/**
+	 * 
+	 * @return width
+	 */
 	public double getWidth() {
 		return width;
 	}
 
-
-	public void draw(int xCoor,int yCoor,String name,World xcv){
+	/**
+	 * draws bomb depending on what stage it is in
+	 * @param xCoor 
+	 * @param yCoor
+	 * @param name name of picture to draw
+	 * @param xcv world
+	 */
+	public void draw(int xCoor, int yCoor, String name, World xcv) {
 
 		System.out.println(exploded);
-		while(!exploded){
-			drawBomb(x,y,pic,xcv);
+		while (!exploded) {
+			drawBomb(x, y, pic, xcv);
 			updateBomb();
 		}
-		if(exploded){
-			while(!doneExploding){
-				drawExplosion(x,y,"Explosion.png",xcv);
+		if (exploded) {
+			while (!doneExploding) {
+				drawExplosion(x, y, "Explosion.png", xcv);
 				updateExplosion();
 			}
 		}
 
 	}
 
-	public void drawBomb(int xCoor,int yCoor,String name, World xcv){
+	/**
+	 * draws unexploded bomb
+	 * @param xCoor
+	 * @param yCoor
+	 * @param name
+	 * @param xcv
+	 */
+	public void drawBomb(int xCoor, int yCoor, String name, World xcv) {
 		StdDraw.show(90);
 		xcv.display();
-		StdDraw.picture(x,y,pic,60,60);
+		StdDraw.picture(x, y, pic, 60, 60);
 		StdDraw.show();
 		StdDraw.show(90);
 		xcv.display();
-		StdDraw.picture(x, y, pic, 50,50);
+		StdDraw.picture(x, y, pic, 50, 50);
 		StdDraw.show();
 
 	}
-	
 
+	/**
+	 * draws and animates explosion
+	 * @param xCoor
+	 * @param yCoor
+	 * @param name
+	 * @param xcv
+	 */
+	public void drawExplosion(int xCoor, int yCoor, String name, World xcv) {
 
-	public void drawExplosion(int xCoor,int yCoor,String name, World xcv){
-		
-		StdDraw.picture(xCoor, yCoor, "Explosion.png",60,60);
+		StdDraw.picture(xCoor, yCoor, "Explosion.png", 60, 60);
 		StdDraw.show(120);
 		xcv.display();
-		for(int i = xCoor-120; i<=xCoor+120; i+=60){
-			if(xcv.isValid(i,yCoor)){
-				StdDraw.picture(i, yCoor, name, 60, 60);			
+		for (int i = xCoor - 120; i <= xCoor + 120; i += 60) {
+			if (xcv.isValid(i, yCoor)) {
+				StdDraw.picture(i, yCoor, name, 60, 60);
 			}
 		}
-		
-		for(int j = yCoor-120; j<=yCoor+120; j+=60){
-			if(xcv.isValid(xCoor,j)){
+
+		for (int j = yCoor - 120; j <= yCoor + 120; j += 60) {
+			if (xcv.isValid(xCoor, j)) {
 				StdDraw.picture(xCoor, j, name, 60, 60);
 			}
 		}
 		StdDraw.show();
-		
 
 	}
-
-
 
 }
