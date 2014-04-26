@@ -17,12 +17,20 @@ public class Location {
 		this.ID=ID;
 	}
 	
+	/**
+	 * converts to a number appropriate for StdDraw
+	 * @return
+	 */
 	public int getX(){
 		// IF you would like to check the x :System.out.println((900/dim)*col);
 		return ((900/15)*col)+30;
 		
 	}
 	
+	/**
+	 * converts to a number appropriate for StdDraw
+	 * @return
+	 */
 	public int getY(){
 		//if you would like to check the y: System.out.println((900/dim)*(14-row));
 		return ((900/15)*(14-row))+30;
@@ -30,7 +38,18 @@ public class Location {
 	}
 	
 	//used in displaying the world
+	/**
+	 * 0 = empty place
+	 * 1 = unbreakable block
+	 * 2 = breakable block
+	 * 3 = character
+	 * 4 = bomb
+	 * 5 = bomb explosion
+	 * 6 = block
+	 * @return
+	 */
 	public int getID(){
 		return ID;
 	}
 }
+
