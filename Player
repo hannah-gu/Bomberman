@@ -11,19 +11,32 @@ public class Player implements Entity {
 	private int countBombs;
 	private int[] keys;
 
+	/**
+	 * Creates a new Player 
+	 * @param x xCoor
+	 * @param y yCoor
+	 * @param width width to display in pixels
+	 * @param picName name of the picture to display
+	 */
 	public Player(int x, int y, double width, String picName)
 	{
+			//has to do with drawing in StdDraw
 			StdDraw.setXscale(0, 900);
         	StdDraw.setYscale(0, 900);
         	this.x=x;
         	this.y=y;
         	pic = picName;
         	countBombs = 0;
+        	//initial display
         	StdDraw.picture(x, y, "Sprite1Front.png",width,width);
         	keys = new int[5];
         
 	}
 	
+	/**
+	 * sets keys for motion when a key is pressed
+	 * @param a
+	 */
 	public void setKeys(int[] a){
 		for(int i = 0; i<5; i++){
 			keys[i]=a[i];
@@ -43,6 +56,12 @@ public class Player implements Entity {
 		return width;
 	}
 	
+	/**
+	 * Draws player
+	 * @param xCoor 
+	 * @param yCoor
+	 * @param name
+	 */
 	public void draw(int xCoor, int yCoor, String name){
         	
         StdDraw.picture(xCoor, yCoor, name);
@@ -50,12 +69,16 @@ public class Player implements Entity {
 		
         }
 	
+	//needed to match Entity
 	public void draw(){
 		StdDraw.picture(x,y,pic,width);
 	}
 
 
-	
+	/**
+	 * animates and moves player according to key presses
+	 * @param xcv World
+	 */
 	public void animateCharacter(World xcv)
 
 	{
