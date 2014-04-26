@@ -21,6 +21,9 @@ public class World {
 	
 	
 	
+	/**
+	 * Creates world, generates blocks
+	 */
 	public World(){
 		StdDraw.setCanvasSize(DIMENSION,DIMENSION); 
 		StdDraw.setXscale(0, DIMENSION);
@@ -29,6 +32,9 @@ public class World {
 		generateUnbreakableBlocks();
 	}
 	
+	/**
+	 * generates breakable blocks 
+	 */
 	private void generateBreakableBlocks(){
 		for(int row=0;row<objectLocations.length;row++){
 			for(int col=0;col<objectLocations[row].length;col++){
@@ -40,6 +46,9 @@ public class World {
 	}
 	
 	
+	/**
+	 * generates unbreakable blocks 
+	 */
 	private void generateUnbreakableBlocks(){
 		for(int row=0;row<objectLocations.length;row++){
 			for(int col=0;col<objectLocations[row].length;col++){
@@ -49,6 +58,7 @@ public class World {
 				}
 			}
 		}
+		//leaves empty spots for the player
 		objectLocations[0][0] = null;
 		objectLocations[ARRAY_DIM-1][0]=null;
 		objectLocations[0][ARRAY_DIM-1]=null;
@@ -62,10 +72,18 @@ public class World {
 	
 
 
+	/**
+	 * checks if valid
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public boolean isValid(double x, double y){
+		//bounds of grid
 		if(x>900 || x<0 || y>900 || y<0){
 			return false;
 		}
+		//checks for other objects
 		if(objectLocations[14-((int)(((y-30)*15)/900))][(int)(((x-30)*15)/900)] !=null && objectLocations[14-((int)(((y-30)*15)/900))][(int)(((x-30)*15)/900)].getID()==1){//converts x/y-coordinates back into row/col
 			if(objectLocations[14-((int)(((y-30)*15)/900))][(int)(((x-30)*15)/900)].getID()==1){
 				return false;
@@ -78,8 +96,13 @@ public class World {
 	}
 
 	
+	/**
+	 * displays world
+	 */
 	public void display(){
+		//sets background to green
 		StdDraw.clear(Color.green);
+		//goes through and draws each object
 		for(Entity[] a : objectLocations){
 			for(Entity b : a){
 				if(b !=null)
@@ -93,10 +116,12 @@ public class World {
 		return objectLocations[row][col].getID();
 	}
 	
+	//adds a bomb
 	public void addBomb(int col, int row){
 		objectLocations[row][col] = (new Bomb(1,col,row))  ;
 	}
 	
+	//removes an object 
 	public void removeOccupant(int row,int col){
 		objectLocations[row][col]=null;
 	}
