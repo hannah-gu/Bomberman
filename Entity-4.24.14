@@ -1,5 +1,14 @@
+/**
+ * Every drawable object in the game is a Entity
+ * This includes Players, Blocks, Bombs ...
+ * 
+ *
+ */
 public abstract class Entity{
 
+  /**
+   * the Location each Enitity will have
+   */
   private Location loc;
 
 	
@@ -14,10 +23,21 @@ public abstract class Entity{
 	 return loc.getY();
   }
 
+  /**
+   * 0 = empty place
+   * 1 = unbreakable block
+   * 2 = breakable block
+   * 3 = character
+   * 4 = bomb
+   * 5 = bomb explosion
+   * 6 = block
+   * @return the id which tells what type each object is
+   */
   public abstract int getID();//Instance of? 
 
   //  public int getWidth();
  
+  //have to implement the different draw methods for each class
   public abstract void draw();
   
   
