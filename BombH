@@ -41,7 +41,7 @@ public class Bomb {
 	public void updateBomb() {
 		if (cd.check()) {
 			exploded = true;
-			cd.reset(2);
+			cd.reset(0);
 		}
 	}
 	/**
@@ -101,15 +101,15 @@ public class Bomb {
 	 */
 	public void draw(int xCoor, int yCoor, String name, World xcv) {
 
-		System.out.println(exploded);
-		while (!exploded) {
-			drawBomb(x, y, pic, xcv);
+		if(!exploded){
+			drawBomb();
 			updateBomb();
 		}
-		if (exploded) {
-			while (!doneExploding) {
-				drawExplosion(x, y, "Explosion.png", xcv);
+		else{
+			if(!doneExploding){
+				drawExplosion();
 				updateExplosion();
+	
 			}
 		}
 
@@ -123,14 +123,7 @@ public class Bomb {
 	 * @param xcv
 	 */
 	public void drawBomb(int xCoor, int yCoor, String name, World xcv) {
-		StdDraw.show(90);
-		xcv.display();
 		StdDraw.picture(x, y, pic, 60, 60);
-		StdDraw.show();
-		StdDraw.show(90);
-		xcv.display();
-		StdDraw.picture(x, y, pic, 50, 50);
-		StdDraw.show();
 
 	}
 
@@ -143,18 +136,35 @@ public class Bomb {
 	 */
 	public void drawExplosion(int xCoor, int yCoor, String name, World xcv) {
 
-		StdDraw.picture(xCoor, yCoor, "Explosion.png", 60, 60);
-		StdDraw.show(120);
-		xcv.display();
-		for (int i = xCoor - 120; i <= xCoor + 120; i += 60) {
-			if (xcv.isValid(i, yCoor)) {
-				StdDraw.picture(i, yCoor, name, 60, 60);
+		StdDraw.picture(getX(), getY(), "Explosion.png",60,60);
+		for(int i = (int)getX(); i<=(int)getX()+60; i+=60){
+			if(xcv.isValid(i,getY())){
+				StdDraw.picture(i, getY(), "Explosion.png", 60, 60);
+			}else{
+				break;
 			}
 		}
+		for(int i = (int)getX(); i>=(int)getX()-60; i-=60){
+			if(xcv.isValid(i,getY())){
+				StdDraw.picture(i, getY(), "Explosion.png", 60, 60);
+			}else{
+				break;
+			}
 
-		for (int j = yCoor - 120; j <= yCoor + 120; j += 60) {
-			if (xcv.isValid(xCoor, j)) {
-				StdDraw.picture(xCoor, j, name, 60, 60);
+		}
+		for(int j = (int)getY(); j>=(int)getY()-60; j-=60){
+			if(xcv.isValid(getX(),j)){
+				StdDraw.picture(getX(), j, "Explosion.png", 60, 60);
+			}else{
+				break;
+			}
+		}
+		for(int j = (int)getY(); j<=(int)getY()+60; j+=60){
+			if(xcv.isValid(getX(),j)){
+				StdDraw.picture(getX(), j, "Explosion.png", 60, 60);
+			}else{
+				
+				break;
 			}
 		}
 		StdDraw.show();
