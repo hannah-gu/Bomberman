@@ -1,29 +1,33 @@
-package components;
+
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+
+import components.StdDraw;
 
 public class DrawMain {
 
 	public static void main(String[] args) {
 
-		
+		int dimension = 900;
 		StdDraw.setXscale(0.0,900.0);
 		StdDraw.setYscale(0.0,900.0);
-		int dimension = 900;
-		StdDraw.setCanvasSize(dimension,dimension);
-		Player p1 = new Player(0,0,10, "Sprite1Front.png");
+		World world = new World();
+		Player p1 = new Player(0,0,10, "Sprite1Front.png", 1, world);
 		p1.draw();
 		int[] k1 = {KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_SPACE};
 		p1.setKeys(k1);
 		
-		StdDraw.show(10);
-		p1.draw();
+		
+		Player p2 = new Player(900,900,10,"Sprite2Front1.png", 2, world);
+		p2.draw();
+		int[] k2 = {KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SHIFT};
+		p2.setKeys(k2);
 		
 
-		while(!p1.isDead()){	
-			StdDraw.show(10);
+		while(true){	
+			
 			p1.animateCharacter();
-			//StdDraw.show(10);
+			p2.animateCharacter();
 		}
 		}
 	}
