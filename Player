@@ -5,11 +5,13 @@ import java.awt.event.KeyEvent;
 public class Player implements Entity {
 
 	private int x,y;
-	private double moveSpeed = 15.0;
-	private double width;
+	private double moveSpeed = 30.0;
+	private int width;
 	private String pic;
-	private int countBombs;
 	private int[] keys;
+	private boolean dead;
+	private int playerNum;
+	private World xcv;
 
 	/**
 	 * Creates a new Player 
@@ -20,16 +22,19 @@ public class Player implements Entity {
 	 */
 	public Player(int x, int y, double width, String picName)
 	{
-			//has to do with drawing in StdDraw
-			StdDraw.setXscale(0, 900);
+		//has to do with drawing in StdDraw
+		super(y,x);
+		StdDraw.setXscale(0, 900);
         	StdDraw.setYscale(0, 900);
         	this.x=x;
         	this.y=y;
+        	this.width = width;
         	pic = picName;
-        	countBombs = 0;
-        	//initial display
-        	StdDraw.picture(x, y, "Sprite1Front.png",width,width);
+        	dead = false;
+        	this.playerNum = playerNum;
+        	StdDraw.picture(x, y, "Sprite" + playerNum + "Front.png",width,width);
         	keys = new int[5];
+        	this.xcv = xcv;
         
 	}
 	
@@ -82,78 +87,85 @@ public class Player implements Entity {
 	public void animateCharacter(World xcv)
 
 	{
-		while(true)
-		{
-			if( xcv.isValid((double) x,y+moveSpeed)){
-				
-				if(StdDraw.isKeyPressed(keys[0]) ){
+		if( StdDraw.isKeyPressed(keys[0])){
+
+				if(xcv.isValid((double) x,y+moveSpeed)) {								
 					y +=moveSpeed/2;
 					StdDraw.show(50);
 					xcv.display();
-					draw(x,y,"Sprite1Back.png");
+					draw(x,y,"Sprite" + playerNum + "Back.png");
 					StdDraw.show();
 					y+=moveSpeed/2;
 					StdDraw.show(50);
 					xcv.display();
-					draw(x,y,"Sprite1Back2.png");
+					draw(x,y,"Sprite" + playerNum + "Back2.png");
 					StdDraw.show();
+					
 
 				}
 			}
-			if( xcv.isValid((double) x, y-moveSpeed)){
-				if(StdDraw.isKeyPressed(keys[1]) ){
+			else if(StdDraw.isKeyPressed(keys[1] )){
+				if(xcv.isValid((double) x,y-moveSpeed)){
 					y -=moveSpeed/2;
 					StdDraw.show(50);
 					xcv.display();
-					draw(x,y,"Sprite1Front.png");
+					draw(x,y,"Sprite" + playerNum + "Front.png");
 					StdDraw.show();
 					y-=moveSpeed/2;
 					StdDraw.show(50);
 					xcv.display();
-					draw(x,y,"Sprite1Front2.png");
+					draw(x,y,"Sprite" + playerNum + "Front2.png");
 					StdDraw.show();
 				}
 			}
-			if( xcv.isValid(x+moveSpeed,(double)y)){
+			else if( StdDraw.isKeyPressed(keys[2])){
 
-			
-				if(StdDraw.isKeyPressed(keys[2]) ){
+
+				if( xcv.isValid(x+moveSpeed,(double)y)){
 					x +=moveSpeed/2;
 					StdDraw.show(50);
 					xcv.display();
-					draw(x,y,"Sprite1Right.png");
+					draw(x,y,"Sprite" + playerNum + "Right.png");
 					StdDraw.show();
 					x+=moveSpeed/2;
 					StdDraw.show(50);
 					xcv.display();
-					draw(x,y,"Sprite1Right2.png");
+					draw(x,y,"Sprite" + playerNum + "Right2.png");
 					StdDraw.show();
 				}
 			}
-			if( xcv.isValid(x-moveSpeed,(double)y)){
-				if(StdDraw.isKeyPressed(keys[3])){
+			else if(StdDraw.isKeyPressed(keys[3]) ){
+				if(xcv.isValid(x-moveSpeed,(double)y)){
 					x -=moveSpeed/2;
 					StdDraw.show(50);
 					xcv.display();
-					draw(x,y,"Sprite1Left.png");
+					draw(x,y,"Sprite" + playerNum + "Left.png");
 					StdDraw.show();
 					x-=moveSpeed/2;
 					StdDraw.show(50);
 					xcv.display();
-					draw(x,y,"Sprite1Left2.png");
+					draw(x,y,"Sprite" + playerNum + "Left2.png");
 					StdDraw.show();
 				}
 
 			}
-			if(StdDraw.isKeyPressed(keys[4])){
-					Bomb b = new Bomb(8,x,y,width,"bomb.png");
-					b.draw(x,y,"bomb.png",xcv);
-					
+			else if(StdDraw.isKeyPressed(keys[4])){
+
+					StdDraw.show(25);
+					xcv.addBomb((int)(((x-30)*15)/900),14-((int)((((y-30)*15)/900)+.5)),xcv);
+					xcv.display();
+					StdDraw.show();
 
 			}
-
+			else{
+				StdDraw.show(45);
+				xcv.display();
+				draw(x,y,"Sprite" + playerNum + "Front.png");
+				
+				StdDraw.show();
+			}
+			xcv.bombsExploding(xcv);
 
 		}
-	}
 
 }
