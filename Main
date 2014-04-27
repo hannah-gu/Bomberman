@@ -1,4 +1,3 @@
-
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
@@ -11,7 +10,9 @@ public class DrawMain {
 		int dimension = 900;
 		StdDraw.setXscale(0.0,900.0);
 		StdDraw.setYscale(0.0,900.0);
+		
 		World world = new World();
+		
 		Player p1 = new Player(0,0,10, "Sprite1Front.png", 1, world);
 		p1.draw();
 		int[] k1 = {KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_SPACE};
