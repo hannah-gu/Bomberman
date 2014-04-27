@@ -156,16 +156,15 @@ public class Player implements Entity {
 					xcv.display();
 					StdDraw.show();
 
-			}
-			else{
+			}else{
 				StdDraw.show(45);
 				xcv.display();
 				draw(x,y,"Sprite" + playerNum + "Front.png");
 				
 				StdDraw.show();
 			}
+			
 			xcv.bombsExploding(xcv);
-
 		}
 
 }
