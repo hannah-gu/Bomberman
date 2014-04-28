@@ -1,0 +1,21 @@
+
+public class SpecialBlock extends BreakableBlock{
+	
+	
+	public SpecialBlock(int x, int y){
+		super(x,y);
+	}
+	
+	
+	public int getID(){
+		return 5;
+	}
+	
+	public void discovered(World xcv){
+		StdDraw.show(25);
+		xcv.display();
+		StdDraw.picture(getX(), getY(), "star.png",60,60);
+		StdDraw.show();
+	}
+
+}
