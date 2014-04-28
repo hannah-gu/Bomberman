@@ -1,53 +1,75 @@
+
+
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-
+/**
+ * 
+ * @author Tommy, Hannah, and Trisha
+ *
+ */
 public class World {
 	
 	
 	private final int  DIMENSION = 900;//if this is changed, everything breaks. Fix that the +90 is b/c stdDraw adds a 10% boarder for some reason
-	public final int ARRAY_DIM = 15;
+	public final int ARRAY_DIM = 15;//the dimension of the array
 	private Entity[][] objectLocations = new Entity[ARRAY_DIM][ARRAY_DIM];//this 2D array will have all of the locations of all of the current objects in the world i think that the 2d array should also have different numbers to indicate what kind of object is in a certain loaction
+	private boolean gameOver;
 	/*
 	 * for object locations: 
-	 * 0 = empty place
 	 * 1 = unbreakable block
 	 * 2 = breakable block
 	 * 3 = character
 	 * 4 = bomb
-	 * 5 = bomb explosion 
-	 * 6 = block
+	 * 5 = special block
 	 */
 	
 	
 	
-	/**
-	 * Creates world, generates blocks
-	 */
 	public World(){
 		StdDraw.setCanvasSize(DIMENSION,DIMENSION); 
 		StdDraw.setXscale(0, DIMENSION);
 		StdDraw.setYscale(0, DIMENSION);
 		generateBreakableBlocks();
 		generateUnbreakableBlocks();
+		gameOver = false;
 	}
 	
+
 	/**
-	 * generates breakable blocks 
+	 * generates the breakable blocks in object locations 
 	 */
 	private void generateBreakableBlocks(){
+		int count = 0;
 		for(int row=0;row<objectLocations.length;row++){
 			for(int col=0;col<objectLocations[row].length;col++){
-				if(col%2!=0 && row%2 != 0){
-					objectLocations[row][col]= (new BreakableBlock(col,row)) ;
-				}
+				objectLocations[row][col]= (new BreakableBlock(col,row)) ;
 			}
 		}
+		
+		//removes the breakable blocks at the edges objectLocations
+		for(int row=0;row<objectLocations.length;row++){
+			for(int col=0;col<objectLocations[row].length;col++){
+				if(row==0 || col==0 || row == 14 || col == 14){
+					objectLocations[row][col]=null;
+				}
+				
+			}
+		}
+		int rRow = (int)(Math.random()*13)+1;
+		int rCol = (int)(Math.random()*13)+1;
+		
+		objectLocations[rRow][rCol] = new SpecialBlock(rCol,rRow);
+		System.out.println(rRow+ " " + rCol);
+		
+		
+		
 	}
 	
 	
 	/**
-	 * generates unbreakable blocks 
+	 * generates the unbreakable blocks in object locations 
 	 */
 	private void generateUnbreakableBlocks(){
 		for(int row=0;row<objectLocations.length;row++){
@@ -58,11 +80,13 @@ public class World {
 				}
 			}
 		}
-		//leaves empty spots for the player
+		
+		//removes the corners where players spawn
 		objectLocations[0][0] = null;
 		objectLocations[ARRAY_DIM-1][0]=null;
 		objectLocations[0][ARRAY_DIM-1]=null;
-		//objectLocations[ARRAY_DIM-1][ARRAY_DIM-1] =null;
+		objectLocations[ARRAY_DIM-1][ARRAY_DIM-1] =null;
+		
 		
 
 		
@@ -71,20 +95,17 @@ public class World {
 	
 	
 
-
 	/**
-	 * checks if valid
-	 * @param x
-	 * @param y
-	 * @return
+	 * This checks if the player movement location is a valid place on the grid
+	 * @param x x-coordinate to check 
+	 * @param y y-coordinate to check
+	 * @return false if invalid, true if valid
 	 */
 	public boolean isValid(double x, double y){
-		//bounds of grid
 		if(x>900 || x<0 || y>900 || y<0){
 			return false;
 		}
-		//checks for other objects
-		if(objectLocations[14-((int)(((y-30)*15)/900))][(int)(((x-30)*15)/900)] !=null && objectLocations[14-((int)(((y-30)*15)/900))][(int)(((x-30)*15)/900)].getID()==1){//converts x/y-coordinates back into row/col
+		if(objectLocations[14-((int)(((y-30)*15)/900))][(int)(((x-30)*15)/900)] !=null ){//converts x/y-coordinates back into row/col
 			if(objectLocations[14-((int)(((y-30)*15)/900))][(int)(((x-30)*15)/900)].getID()==1){
 				return false;
 			}
@@ -97,34 +118,122 @@ public class World {
 
 	
 	/**
-	 * displays world
+	 * goes through object locations and displays the array
 	 */
 	public void display(){
-		//sets background to green
 		StdDraw.clear(Color.green);
-		//goes through and draws each object
 		for(Entity[] a : objectLocations){
 			for(Entity b : a){
-				if(b !=null)
+				if(b !=null){
 					b.draw();
+				}
 			}
 		}
 	}
 	
-	//returns what number is in objectLocations at the specified row and col
-	public int getOccupants(int row,int col){
-		return objectLocations[row][col].getID();
+
+	/**
+	 * adds a bomb to object locations 
+	 * @param col col in objectLocations
+	 * @param row row in objectLocations
+	 */
+	public void addBomb(int col, int row, World xcv, int player){
+		objectLocations[row][col] = (new Bomb(2,col,row,xcv, player))  ;
 	}
 	
-	//adds a bomb
-	public void addBomb(int col, int row){
-		objectLocations[row][col] = (new Bomb(1,col,row))  ;
+	public boolean getGameOver(){
+		return gameOver;
 	}
 	
-	//removes an object 
-	public void removeOccupant(int row,int col){
-		objectLocations[row][col]=null;
+
+	
+	/**
+	 * checks the locations that bomb explodes for a breakable block and removes that block from objectLocations
+	 */
+	public void bombsExploding(World xcv){
+		
+		for(Entity[] a: objectLocations){
+			for(Entity b : a){
+				if(b instanceof Bomb){
+					int row = ((Bomb) b).getRow();
+					int col = ((Bomb) b).getCol();	
+					if(((Bomb)b).isExploded()){//isExploded?
+						
+						if(row +1<15){//checks if bomb will go off the grid if it explodes above and below
+							if(objectLocations[row+1][col] != null){
+								if(objectLocations[row+1][col].getID() ==2){
+									objectLocations[row+1][col]=null;
+								}else if(objectLocations[row+1][col].getID()==5){
+									((SpecialBlock)objectLocations[row+1][col]).discovered(xcv);
+									gameOver = true;
+									StdDraw.show(100);
+									StdDraw.show();
+									StdDraw.clear(Color.green);
+									StdDraw.picture(450,450,"Sprite"+((Bomb)b).getPlayer()+"Front.png",500,500);
+									StdDraw.text(450,450,"Game over. Player " + ((Bomb)b).getPlayer() +" found the Golden Star!");
+									
+								}
+									
+							}
+						}
+						if(row-1 >0){
+							if(objectLocations[row-1][col] != null){
+								if(objectLocations[row-1][col].getID() ==2){
+									objectLocations[row-1][col]=null;				
+								}else if(objectLocations[row-1][col].getID()==5){
+									((SpecialBlock)objectLocations[row-1][col]).discovered(xcv);
+									gameOver = true;
+									StdDraw.show(100);
+									StdDraw.show();
+									StdDraw.clear(Color.green);
+									StdDraw.picture(450,450,"Sprite"+((Bomb)b).getPlayer()+"Front.png",500,500);
+									StdDraw.text(450,450,"Game over. Player " + ((Bomb)b).getPlayer() +" found the Golden Star!");
+								}
+							}
+						}
+						if( col+1 <15){//checks if bomb will go off the grid if it explodes right and left
+							if(objectLocations[row][col+1] != null){
+								if(objectLocations[row][col+1].getID() ==2){
+									objectLocations[row][col+1]=null;
+								}else if(objectLocations[row][col+1].getID()==5){
+									((SpecialBlock)objectLocations[row][col+1]).discovered(xcv);
+									gameOver = true;
+									StdDraw.show(100);
+									StdDraw.show();
+									StdDraw.clear(Color.green);
+									StdDraw.picture(450,450,"Sprite"+((Bomb)b).getPlayer()+"Front.png",500,500);
+									StdDraw.text(450,450,"Game over. Player " + ((Bomb)b).getPlayer() +" found the Golden Star!");
+								}
+							}
+						}
+						
+						if( (col-1 >0)){
+							if(objectLocations[row][col-1] != null){
+								if(objectLocations[row][col-1].getID() ==2){
+									objectLocations[row][col-1]=null;
+								}else if(objectLocations[row][col-1].getID()==5){
+									((SpecialBlock)objectLocations[row][col-1]).discovered(xcv);
+									gameOver = true;
+									StdDraw.show(100);
+									StdDraw.show();
+									StdDraw.clear(Color.green);
+									StdDraw.picture(450,450,"Sprite"+((Bomb)b).getPlayer()+"Front.png",500,500);
+									StdDraw.text(450,450,"Game over. Player " + ((Bomb)b).getPlayer() +" found the Golden Star!");
+								}
+							}
+						}
+					
+						
+						
+					}		
+						
+				}
+			}
+		}
+	
 	}
+}	
+
 	
 }
 
