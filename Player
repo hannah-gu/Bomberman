@@ -61,6 +61,26 @@ public class Player implements Entity {
 		return width;
 	}
 	
+	public void setDeath(){
+		System.out.println("dead");
+		dead = true;
+	}
+	
+	public boolean getDeath(){
+		return dead;
+	}
+	
+	public void dead(){
+		if(dead){
+			System.out.println("Bye");
+			StdDraw.show(50);
+			xcv.display();
+			draw(x,y,"SpriteGone.png");
+			StdDraw.show();
+		}
+	}
+
+	
 	/**
 	 * Draws player
 	 * @param xCoor 
